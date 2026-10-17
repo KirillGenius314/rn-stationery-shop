@@ -1,23 +1,22 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
-import { CartLine } from '../types/product';
+import { CartLine } from '../types/drug';
 import { useCartStore } from '../stores/cartStore';
 import { useState } from 'react';
 
 export default function CartItem({ line }: { line: CartLine }) {
   const [qty, setQty] = useState<number>(line.quantity);
   const remove = useCartStore((s) => s.remove);
-
-  const sum = line.product.price * qty;
+ 
+  if (qty < 1){
+    remove(line.drug.id)
+  }
+    
 
   return (
     <View style={styles.row}>
-      <Image source={{ uri: line.product.image_url }} style={styles.image} />
       <View style={styles.info}>
         <Text style={styles.name} numberOfLines={2}>
-          {line.product.name}
-        </Text>
-        <Text style={styles.price}>
-          {line.product.price} ₽ × {qty} = {sum} ₽
+          {line.drug.name}
         </Text>
 
         <View style={styles.controls}>
@@ -28,7 +27,7 @@ export default function CartItem({ line }: { line: CartLine }) {
           <Pressable style={styles.qtyBtn} onPress={() => setQty(qty + 1)}>
             <Text style={styles.qtyText}>+</Text>
           </Pressable>
-          <Pressable onPress={() => remove(line.product.id)} style={styles.remove}>
+          <Pressable onPress={() => remove(line.drug.id)} style={styles.remove}>
             <Text style={styles.removeText}>Удалить</Text>
           </Pressable>
         </View>
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     backgroundColor: '#fff',
     borderRadius: 12,
-  },
+  }, 
   image: { width: 72, height: 72, borderRadius: 8, backgroundColor: '#f2f2f2' },
   info: { flex: 1, marginLeft: 12 },
   name: { fontSize: 14, fontWeight: '600', marginBottom: 4 },

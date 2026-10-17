@@ -1,4 +1,4 @@
-import { Alert, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Alert, FlatList, Pressable, StyleSheet, Text, View, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
@@ -24,14 +24,20 @@ export default function CartScreen() {
   }
 
   const handleBuy = () => {
+
     // Читаем актуальное состояние из стора вне React — фишка Zustand
     const total = useCartStore.getState().lines;
     const count = Object.values(total).reduce((s, l) => s + l.quantity, 0);
-
+    const title = 'Спасибо за покупку! 🎉'
+    const message = `Вы заказали ${count} товаров`
+    if (Platform.OS === 'web') {
+      window.alert(`${title}\n\n${message}`);
+      clear();
+      return;
+    }
     Alert.alert(
-      'Спасибо за покупку! 🎉',
-      `Вы заказали ${count} тов. на сумму ${Object.values(total)
-        .reduce((s, l) => s + l.product.price * l.quantity, 0)} ₽.`,
+      title,
+      message,
       [
         {
           text: 'OK',
@@ -57,7 +63,7 @@ export default function CartScreen() {
     <View style={styles.container}>
       <FlatList
         data={lines}
-        keyExtractor={(l) => l.product.id}
+        keyExtractor={(l) => l.drug.id}
         renderItem={({ item }) => <CartItem line={item} />}
         contentContainerStyle={styles.list}
       />

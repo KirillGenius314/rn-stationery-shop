@@ -1,8 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
-import ProductListScreen from '../screens/ProductListScreen';
-import ProductDetailsScreen from '../screens/ProductDetailsScreen';
+import DrugListScreen from '../screens/DrugListScreen';
+import DrugDetailsScreen from '../screens/DrugDetailsScreen';
 import CartScreen from '../screens/CartScreen';
 import HeaderCartButton from '../components/HeaderCartButton';
 
@@ -12,17 +12,19 @@ export default function RootNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="ProductList"
-          component={ProductListScreen}
+        <Stack.Screen 
+          name="DrugList"
+          component={DrugListScreen}
           options={{
-            title: 'Канцтовары',
+            title: 'Лекарства',
+            headerTitleStyle: { color: '#008000' , fontSize: 30},
+            headerTitleAlign: 'center',
             headerRight: () => <HeaderCartButton />,
           }}
         />
         <Stack.Screen
-          name="ProductDetails"
-          component={ProductDetailsScreen}
+          name="DrugDetails"
+          component={DrugDetailsScreen}
           options={{
             title: 'Товар',
             headerRight: () => <HeaderCartButton />,

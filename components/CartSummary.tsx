@@ -11,10 +11,6 @@ export default function CartSummary() {
         <Text style={styles.label}>Товаров</Text>
         <Text style={styles.value}>{count}</Text>
       </View>
-      <View style={styles.row}>
-        <Text style={styles.totalLabel}>Итого</Text>
-        <Text style={styles.totalValue}>{total} ₽</Text>
-      </View>
     </View>
   );
 }
