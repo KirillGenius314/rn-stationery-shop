@@ -10,7 +10,10 @@ export default function HeaderCartButton() {
   const count = useCartStore(selectCartCount);
 
   return (
+
+
     <Pressable onPress={() => navigation.navigate('Cart')} style={styles.wrap}>
+  
       <Text style={styles.icon}>🛒</Text>
       {count > 0 && (
         <View style={styles.badge}>

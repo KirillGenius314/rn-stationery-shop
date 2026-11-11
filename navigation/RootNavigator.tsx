@@ -5,6 +5,8 @@ import DrugListScreen from '../screens/DrugListScreen';
 import DrugDetailsScreen from '../screens/DrugDetailsScreen';
 import CartScreen from '../screens/CartScreen';
 import HeaderCartButton from '../components/HeaderCartButton';
+import LoginScreen from '../screens/LoginScreen'
+import BackButton from '../components/BackButton'
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -12,6 +14,12 @@ export default function RootNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        
         <Stack.Screen 
           name="DrugList"
           component={DrugListScreen}
@@ -19,6 +27,7 @@ export default function RootNavigator() {
             title: 'Лекарства',
             headerTitleStyle: { color: '#008000' , fontSize: 30},
             headerTitleAlign: 'center',
+            headerLeft: () => <BackButton />,
             headerRight: () => <HeaderCartButton />,
           }}
         />

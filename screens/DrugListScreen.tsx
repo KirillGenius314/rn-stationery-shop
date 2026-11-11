@@ -57,6 +57,7 @@ export default function DrugListScreen() {
   }
 
   return (
+
     <FlatList
       data={drugs}
       keyExtractor={(p) => p.id}
